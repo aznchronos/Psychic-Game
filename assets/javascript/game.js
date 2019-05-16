@@ -15,7 +15,7 @@ var cpuInput = computerChoices[Math.floor(Math.random() * computerChoices.length
 
 // Limits User Input to 9
 function updateGuessesLeft() {
-    document.querySelector("#Guesses").innerHTML = "Guesses left: " + guessesLeft;
+    document.querySelector("#Guesses").textContent = "Guesses left: " + guessesLeft;
 };
 
 // Changes letter to guess
@@ -25,7 +25,7 @@ function updateLetterToGuess() {
 
 // Updates list of Guessed Letters
 function updateGuessed() {
-    document.querySelector("#LettersGuessed").innerHTML = "Your Guesses so far: " + guessedLetters.join(", ");
+    document.querySelector("#LettersGuessed").textContent = "Your Guesses so far: " + guessedLetters.join(", ");
 };
 
 // Reset Game after end
@@ -67,7 +67,7 @@ document.onkeyup = function(event)
             //We have to go deeper
             if(userGuess == letterToGuess) {
             wins++;
-            document.querySelector("#wins").innerHTML = "Wins: " + wins;
+            document.querySelector("#wins").textContent = "Wins: " + wins;
             userGuess = userGuess.toUpperCase();
             // Function to restart game
             reset();
@@ -76,7 +76,7 @@ document.onkeyup = function(event)
         }
         else if(guessesLeft == 0){
             losses++;
-            document.querySelector("#losses").innerHTML = "Losses: " + losses;
+            document.querySelector("#losses").textContent = "Losses: " + losses;
             reset();
         }
         return false;
