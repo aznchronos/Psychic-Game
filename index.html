@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <script src="assets/javascript/game.js"></script> -->
+    <script type="text/javascript" src="assets/javascript/game.js"></script>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
     <title>Psychic Game</title>
 </head>
@@ -16,63 +16,15 @@
         <p>Guess what letter I'm thinking of</p>
     </div>
     <div>
-        <p class="wins-text">Wins: </p>
-        <p class="losses-text"></p>
-        <p class="Guesses-text"></p>
+        <p id="wins">Wins: </p>
+        <p id="losses">Losses: </p>
+        <p id="Guesses">Guesses Left: </p>
+        <p id="Guessed">Your Guesses so far: </p>
     </div>
     
     <div class="container">
         
     </div>
-    
-    <script type="text/javascript">
-        var computerChoices = "abcdefghijklmnopqrstuvwxyz".split("")
-
-        var wins = 0;
-        var losses = 0;
-        var chances = 9;
-
-        var winsText = document.getElementById("wins-text");
-        var lossesText = document.getElementById("losses-text");
-        var GuessesText = document.getElementById("Guesses-text");
-
-        document.onkeyup = function(event)
-        {
-            var userGuess = event.key;
-            var cpuInput = computerChoices[Math.floor(Math.random()*Alphabet.length)];
-
-            if((userGuess === "a") || (userGuess === "b") || (userGuess === "c")  || (userGuess === "d")  ||
-            (userGuess === "e")  || (userGuess === "f")  || (userGuess === "g")  || (userGuess === "h")  ||
-            (userGuess === "i") || (userGuess === "j") || (userGuess === "k") || (userGuess === "l") ||
-            (userGuess === "m") || (userGuess === "n") || (userGuess === "o") || (userGuess === "p") ||
-            (userGuess === "q") || (userGuess === "r") || (userGuess === "s") || (userGuess === "t") ||
-            (userGuess === "u") || (userGuess === "v") || (userGuess === "w") || (userGuess === "x") ||
-            (userGuess === "y") || (userGuess === "z")) 
-            {
-                
-                if(userGuess === cpuInput) {
-                    wins++;
-                }
-                else {
-                    guesses--;
-                    if(guesses === 0){
-                        losses++;
-                        guesses === 9;
-                    }
-                }
-
-                directionsText.textContent = "";
-
-                winsText.textContent = "Wins: " + wins;
-                lossesText.textContent = "Losses: " + losses;
-                GuessesText.textContent = "Your Guesses so far: " + Guesses;
-            }
-        
-
-            var Alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
-            console.log(Alphabet)
-        };
-    </script>
     
 </body>
 </html>

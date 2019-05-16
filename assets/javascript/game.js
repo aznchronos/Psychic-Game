@@ -1,31 +1,87 @@
-$(document).ready(function() {
-    function genCharArray(charA, charZ) {
-        var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0)
-        for (; i <= j; ++i) {
-            a.push(String.fromCharCode(i));
-        }
-        return a;
-    }
-    genCharArray('a', 'z'); // ["a", ..., "z"]
-    
-    function newGame(){
-        
-      }
-      
-      //calls the newGame function
-      newGame()
+// Available Letter Choices
+var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+// var computerChoices = "abcdefghijklmnopqrstuvwxyz".split("")
 
-      // Here we create the on click event that gets the user's pick
-      $(".btn-choice").on("click", function() {
-            //"this" apparently is how the computer is able to differentiate numbers associated with buttons
-        if(computerGuess == $(this).val()){
-          $("#result").text("Winner Winner!");
-          newGame();
+// Default Numbers
+var wins = 0;
+var losses = 0;
+var guesses = 9;
+var guessesLeft = 9;
+var guessedLetters = [];
+var letterToGuess = null;
+
+// Randomly picks a letter for Random Letter
+var cpuInput = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+// Changes letter to guess
+function updateLettertoGuess() {
+    this.letterToGuess = this.computerChoices[Math.floor(Math.random() * this.computerChoices.length)];
+}
+
+// Limits User Input to 9
+function updateGuessesLeft() {
+    document.querySelector('#Guesses').innerHTML = "Guesses left: " + guessesLeft;
+};
+
+// Updates list of Guessed Letters
+function updateGuessed() {
+    document.querySelector('#Guessed').innerHTML = "Your Guesses so far: " + guessedLetters.join(', ');
+}
+
+// Reset Game after end
+var reset = function () {
+    guessesLeft = 9;
+    guessedLetter = [];
+    updateLettertoGuess();
+    updateGuessesLeft();
+    updateGuessed();
+}
+    
+updateLetterToGuess();
+updateGuessesLeft();
+
+// Makes changes when a key is lifted
+document.onkeyup = function(event)
+    {
+    var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+    var check = computerChoices.includes(userGuess);
+
+    //checks if input pushed is valid
+    if (check === false) {
+        alert("That is not an option, please pick a letter");
+        return false;
+    }
+
+    //Makes sure there are available guesses to use while lowering allowed guesses
+    //This part is the inception of JS
+    else if (check === true) {
+        guessesLeft--;
+        guessedLetters.push(userGuess);
+        updateGuessesLeft();
+        updateGuessed();
+        
+        //We need to go deeper
+        if(guessesLeft > 0) {
+
+            //We have to go deeper
+            if(userGuess == letterToGuess) {
+            wins++;
+            document.querySelector('#wins').innerHTML = "Wins: " + wins;
+            userGuess = userGuess.toUpperCase();
+            // Function to restart game
+            reset();
+            //jk, this is as deep as I'm going for now ;)
+            }
         }
-        else{
-          $("#result").text("Nope!")
-        newGame();
+        else if(guessesLeft == 0){
+            losses++;
+            document.querySelector('#losses').innerHTML = "Losses: " + losses;
+            reset();
         }
-          alert(computerGuess == $(this).val());
-          })
-})
+        return false;
+    }
+    // in case something happens that breaks the code
+    else {
+        alert("Error! Something in the code must've broke... SOrry ~.^")
+    }
+};
